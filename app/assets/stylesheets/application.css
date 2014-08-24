@@ -1,0 +1,92 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+.form-auth-fields {
+	border: 1px solid #e5e5e5;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	        border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	        box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	padding: 10px;
+	margin-bottom: 10px;
+
+}
+
+.form-auth {
+	max-width: 300px;
+	padding: 19px 29px 29px;
+	margin: 0 auto 20px;
+	background-color: #fff;
+}
+.form-auth .form-auth-heading,
+.form-auth .checkbox {
+	margin-bottom: 10px;
+}
+.form-auth input[type="text"],
+.form-auth input[type="password"], 
+.form-auth input[type="email"] {
+	font-size: 16px;
+	height: auto;
+	margin-bottom: 15px;
+	padding: 7px 9px;
+}
+
+.form-auth input[type="submit"] {
+	width: 100%;
+}
+
+.app_name {
+	color: #dddddd;
+}
+
+.field_with_errors .message {
+	color: #b94a48;
+	    margin-bottom: 10px;
+    margin-top: -15px;
+}
+
+footer {
+	text-align: center;
+	margin-top: 10px;
+}
+
+.span12 #yield {
+	border: 1px solid #eeeeee;
+	padding: 25px;
+
+    /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);*/
+}
+
+.span12 #yield #tag-title {
+    background-color: #eee;
+    border: 1px solid #eee;
+    color: #9c9c9c;
+    float: right;
+    margin-top: -26px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.table-hover tbody tr:hover > td {
+  cursor: pointer;
+}
+.no-decoration {
+	text-decoration: none;
+}
+
+.no-decoration:hover {
+	text-decoration: none;
+}

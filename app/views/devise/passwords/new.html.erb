@@ -1,0 +1,37 @@
+<center>
+	<h2 class='app_name'><%= t('general.app_name') %></h2>
+</center>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'form-auth' }) do |f| %>
+
+  <div class="form-auth-fields">
+  <%= f.email_field :email, autofocus: true, placeholder: t('activerecord.attributes.user.email'), class: 'input-block-level' %>
+  
+  </div>
+  <div class="bootstrap_flash"><%=bootstrap_flash%></div>
+  
+  <div><%= f.submit t('devise.links.send_me_reset_password_instructions'), class: 'btn' %></div>
+  
+<% end %>
+
+<div class="navbar navbar-fixed-bottom">
+  <div class="navbar-inner">
+    <div class="container">
+    	<div class="row">
+    		<div class="span4">
+				<%- if controller_name != 'sessions' %>
+				  <%= link_to t('devise.links.log_in'), new_session_path(resource_name), class: "navbar-text"  %>
+				<% end -%>
+    		</div>
+    		<div class="span4">
+		      	<center><p class="navbar-text">&copy; <%="#{t('general.company_name')} - #{Time.now.year}"%></p></center>
+    		</div>
+    		<div class="span4">
+				<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+					<%= link_to t('devise.links.sign_up'), new_registration_path(resource_name), class: "navbar-text pull-right" %>
+				<% end -%>
+    		</div>
+    	</div>
+    </div>
+  </div>
+</div>

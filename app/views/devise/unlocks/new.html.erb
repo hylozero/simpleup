@@ -1,0 +1,15 @@
+<center>
+	<h2 class='app_name'><%= t('general.app_name') %></h2>
+</center>
+
+<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: 'form-auth' }) do |f| %>
+
+  <div class="form-auth-fields">
+	<%= f.email_field :email, class: 'input-block-level', placeholder: t('activerecord.attributes.user.email'), autofocus: true %>
+  </div>
+  <div class="bootstrap_flash"><%=bootstrap_flash%></div>
+
+  <div><%= f.submit "Resend unlock instructions" %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>

@@ -1,0 +1,45 @@
+<center>
+	<h2 class='app_name'><%= t('general.app_name') %></h2>
+</center>
+
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-auth'}) do |f| %>
+
+  <div class="form-auth-fields">
+	  <%= f.email_field :email, autofocus: true, class: 'input-block-level', placeholder: t('activerecord.attributes.user.email') %>
+	  <%= f.password_field :password, autocomplete: "off", class: 'input-block-level', placeholder: t('activerecord.attributes.user.password') %>
+
+	  <% if devise_mapping.rememberable? -%>
+	    <%= label_tag '', class: 'checkbox pull-left' do %>
+	    	<%= f.check_box :remember_me %> <%= f.label :remember_me %>
+	    <% end %>
+	  <% end -%>
+
+	  <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+	  	<%= link_to "<i class='icon-question-sign'></i>".html_safe, new_password_path(resource_name), class: 'pull-right', rel: 'tooltip', :"data-placement" => "top", :"data-toggle" => "tooltip", :"data-original-title" => t('devise.links.forgot_your_password'), style: 'text-decoration: none;' %>
+	  <% end -%>
+
+	  <div style='clear: both;'></div>
+  </div>  	
+ <div class="bootstrap_flash"><%=bootstrap_flash%></div>
+
+
+  <div><%= f.submit t('devise.links.log_in'), class: "btn" %></div>
+<% end %>
+
+<div class="navbar navbar-fixed-bottom">
+  <div class="navbar-inner">
+    <div class="container">
+    	<div class="row">
+    		<div class="span4">
+				<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+					<%= link_to t('devise.links.sign_up'), new_registration_path(resource_name), class: "navbar-text" %>
+				<% end -%>
+    		</div>
+    		<div class="span4">
+		      	<center><p class="navbar-text">&copy; <%="#{t('general.company_name')} - #{Time.now.year}"%></p></center>
+    		</div>
+    	</div>
+    </div>
+  </div>
+</div>

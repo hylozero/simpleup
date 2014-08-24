@@ -1,0 +1,46 @@
+<center>
+  <h2 class='app_name'><%= t('general.app_name') %></h2>
+</center>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-auth' }) do |f| %>
+  
+  <div class="form-auth-fields">
+    <%= f.email_field :email, class: 'input-block-level', placeholder: t('activerecord.attributes.user.email'), autofocus: true %>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+    <i>(leave blank if you don't want to change it)</i>
+    <%= f.password_field :password, class: 'input-block-level', placeholder: t('activerecord.attributes.user.password'), autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, class: 'input-block-level', placeholder: t('activerecord.attributes.user.password_confirmation'), autocomplete: "off" %>
+    <i>(we need your current password to confirm your changes)</i>
+    <%= f.password_field :current_password, class: 'input-block-level', placeholder: t('activerecord.attributes.user.current_password'), autocomplete: "off" %>
+  </div>
+  <div class="bootstrap_flash"><%=bootstrap_flash%></div>
+  
+  <div><%= f.submit t('helpers.links.update') %></div>
+<% end %>
+
+<div class="navbar navbar-fixed-bottom">
+  <div class="navbar-inner">
+    <div class="container">
+      <div class="row">
+        <div class="span4">
+        <%- if controller_name != 'sessions' %>
+          <%= link_to t('devise.links.log_in'), new_session_path(resource_name), class: "navbar-text"  %>
+        <% end -%>
+        </div>
+        <div class="span4">
+            <center><p class="navbar-text">&copy; <%="#{t('general.company_name')} - #{Time.now.year}"%></p></center>
+        </div>
+        <div class="span4">
+          <p><%= button_to t("devise.links.cancel_my_account"), registration_path(resource_name), data: { confirm: t('helpers.links.confirm') }, class: 'pull-right navbar-text', method: :delete %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<%= link_to "Back", :back %>
