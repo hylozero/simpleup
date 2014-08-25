@@ -1,5 +1,7 @@
 SimpleUp::Application.routes.draw do
-  resources :directories
+  resources :directories do
+      resources :su_files
+  end
 
   devise_for :users, :controllers => {
     :passwords => 'auth/passwords',

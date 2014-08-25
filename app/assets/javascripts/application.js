@@ -13,10 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require jquery-fileupload
 //= require_tree .
 
 $(document).ready(function(){
 	$('.table-hover.clicable tr').click(function() {
-    	window.location = document.URL + '/' + $(this).attr('id');
+    	window.location = $(this).attr('id');
 	});
 });

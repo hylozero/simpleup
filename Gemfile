@@ -28,6 +28,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-fileupload-rails'
+gem "paperclip", "~> 4.1"
 
 
 # To use ActiveModel has_secure_password

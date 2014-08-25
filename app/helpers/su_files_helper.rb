@@ -1,0 +1,2 @@
+module SuFilesHelper
+end

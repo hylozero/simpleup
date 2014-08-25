@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require jquery.fileupload-ui
  *= require_tree .
  */
 
@@ -60,18 +61,23 @@
 
 footer {
 	text-align: center;
-	margin-top: 10px;
+	margin-top: 25px;
 }
 
 .span12 #yield {
 	border: 1px solid #eeeeee;
 	padding: 25px;
 
-    /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);*/
+
+	background-color: #fafafa;
+  background-image: linear-gradient(to top, #ffffff, #f2f2f2);
+  background-repeat: repeat-x;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+
 }
 
 .span12 #yield #tag-title {
-    background-color: #eee;
+    background-color: #fff;
     border: 1px solid #eee;
     color: #9c9c9c;
     float: right;
