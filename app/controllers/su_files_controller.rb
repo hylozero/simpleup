@@ -30,7 +30,7 @@ class SuFilesController < ApplicationController
           :content_type => 'text/html',
           :layout => false
         }
-        format.json { render json: {files: [@su_file.to_jq_upload]}, status: :created, location: @su_file }
+        format.json { render json: {files: [@su_file.to_jq_upload]}, status: :created, location: directory_su_file_path(@su_file.directory, @su_file) }
       else
         format.html { render action: "new" }
         format.json { render json: @su_file.errors, status: :unprocessable_entity }
