@@ -7,8 +7,8 @@
   <dd><%= @directory.title %></dd>
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= @directory.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:owner_id) %>:</strong></dt>
-  <dd><%= @directory.owner.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:owners) %>:</strong></dt>
+  <dd><% @directory.owners.each {|o|%><%=o.name%><br/><%}%></dd>
 </dl>
 <% if @directory.su_files.any? %>
 	<table class="table table-striped table-hover">

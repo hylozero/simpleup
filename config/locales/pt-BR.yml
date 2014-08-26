@@ -221,6 +221,7 @@ pt-BR:
         owner_id: "Criador"
         owner: "Criador"
         created_at: "Criado em"
+        owners: "Proprietários"
       user:
         name: "Nome"
         username: "Usuário"

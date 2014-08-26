@@ -41,7 +41,7 @@ class DirectoriesController < ApplicationController
   # POST /directories.json
   def create
     @directory = Directory.new(params[:directory])
-    @directory.owner_id = current_user.id
+    @directory.owners << [current_user]
 
     respond_to do |format|
       if @directory.save

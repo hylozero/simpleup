@@ -1,6 +1,8 @@
 class Directory < ActiveRecord::Base
   attr_accessible :description, :owner_id, :title
 
-  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
-  has_many :su_files
+  has_many :su_files, dependent: :restrict
+  
+  has_many :owners, class_name: 'User', through: :directory_owners
+  has_many :directory_owners, dependent: :destroy
 end
