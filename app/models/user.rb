@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   has_many :directories, through: :directory_owners
   has_many :directory_owners, dependent: :restrict
 
+  has_many :allowed_directories, class_name: 'Directory', through: :directory_allowed_users
+  has_many :directory_allowed_users, dependent: :restrict
+
   validates_presence_of :name
   attr_accessible :name
 end

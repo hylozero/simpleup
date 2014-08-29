@@ -2,7 +2,7 @@ class DirectoriesController < ApplicationController
   # GET /directories
   # GET /directories.json
   def index
-    @directories = Directory.all
+    @directories = Directory.where('private is null or private is false') + Directory.joins(:owners).where('directory_owners.user_id = ?', current_user.id) + Directory.joins(:allowed_users).where('directory_allowed_users.user_id = ?', current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb

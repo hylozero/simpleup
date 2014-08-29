@@ -9,6 +9,10 @@
   <dd><%= @directory.description %></dd>
   <dt><strong><%= model_class.human_attribute_name(:owners) %>:</strong></dt>
   <dd><% @directory.owners.each {|o|%><%=o.name%><br/><%}%></dd>
+  <dt><strong><%= model_class.human_attribute_name(:visibility) %>:</strong></dt>
+  <dd><%=private_visibility_labeling(@directory.private) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:allowed_users) %>:</strong></dt>
+  <dd><% @directory.allowed_users.each {|o|%><%=o.name%><br/><%}%></dd>
 </dl>
 <% if @directory.su_files.any? %>
 	<table class="table table-striped table-hover">
@@ -21,7 +25,7 @@
 	  </tbody>
 	</table>
 <% else %>
-	<%= info_alert(t('general.alerts.no_directories_found')) %>
+	<%= info_alert(t('general.alerts.no_files_found')) %>
 <% end %>
 
 <div class="form-actions">

@@ -18,5 +18,14 @@ module ApplicationHelper
 	def i(i_class)
 		"<i class='#{i_class}'></i>".html_safe
 	end
+	
+	def show_custom_error(object, attribute)
+	 if object.errors[attribute.to_sym].any?
+	   if object.errors[attribute.to_sym].count == 1
+	     "<label class='custom_error_message' for='directory_title'>#{object.errors[attribute.to_sym].first}</label>".html_safe
+     else
+     end
+   end
+	end
 
 end

@@ -20,27 +20,14 @@
   <div><%= f.submit t('helpers.links.update') %></div>
 <% end %>
 
-<div class="navbar navbar-fixed-bottom">
-  <div class="navbar-inner">
-    <div class="container">
-      <div class="row">
-        <div class="span4">
-        <%- if controller_name != 'sessions' %>
-          <%= link_to t('devise.links.log_in'), new_session_path(resource_name), class: "navbar-text"  %>
-        <% end -%>
-        </div>
-        <div class="span4">
-            <center><p class="navbar-text">&copy; <%="#{t('general.company_name')} - #{Time.now.year}"%></p></center>
-        </div>
-        <div class="span4">
-          <p><%= button_to t("devise.links.cancel_my_account"), registration_path(resource_name), data: { confirm: t('helpers.links.confirm') }, class: 'pull-right navbar-text', method: :delete %></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<% content_for :bottom_navabar_left_content do %>
+	<%- if controller_name != 'sessions' %>
+		<%= link_to t('devise.links.log_in'), new_session_path(resource_name), class: "navbar-text navbar-bottom-link"  %>
+	<% end -%>
+<% end -%>
 
-
-
+<% content_for :bottom_navabar_right_content do %>
+	<p><%= button_to t("devise.links.cancel_my_account"), registration_path(resource_name), data: { confirm: t('helpers.links.confirm') }, class: 'pull-right navbar-text navbar-bottom-link', method: :delete %></p>
+<% end %>
 
 <%= link_to "Back", :back %>

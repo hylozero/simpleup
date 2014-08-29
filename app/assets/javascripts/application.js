@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require jquery-fileupload
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/2/jquery.dataTables.bootstrap
 //= require_tree .
 
 $(document).ready(function(){
@@ -21,3 +23,43 @@ $(document).ready(function(){
     	window.location = $(this).attr('id');
 	});
 });
+
+$(document).ready(function(){
+  $(".datatable").dataTable({
+    bProcessing: true,
+    bServerSide: true,
+    sDom: "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+    sPaginationType: "bootstrap",
+    oLanguage: {
+      sProcessing: "",
+      sLengthMenu: "Mostrar _MENU_ registros por pagina",
+      sZeroRecords: "Nenhum registro correspondente ao criterio encontrado",
+      sInfoEmpty: "Exibindo 0 a 0 de 0 registros",
+      sInfo: "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+      sInfoFiltered: "",
+      sSearch: "Procurar: ",
+      oPaginate: {
+        sFirst: "Primeiro",
+        sPrevious: "Anterior",
+        sNext: "Próximo",
+        sLast: "Último"
+      }
+    }
+  });
+})
+
+$(document).ready(function(){
+	if($('#directory_private:checked').length > 0) {
+		$('#allowed-users-div').show();
+	} else {
+		$('#allowed-users-div').hide();			
+	}
+
+	$('#directory_private').change(function(){
+		if(this.checked) {
+			$('#allowed-users-div').show();
+		} else {
+			$('#allowed-users-div').hide();			
+		}
+	})
+})

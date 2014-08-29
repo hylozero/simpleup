@@ -3,11 +3,11 @@
 <%- tag_title(model_class.model_name.human.titleize.pluralize) -%>
 
 <% if @directories.any? %>
-	<table class="table table-striped table-hover clicable">
+	<table class="table table-striped table-hover clicable datatable">
 	  <thead>
 	    <tr>
 	      <th><%=i('icon-folder-close')%> <%= model_class.human_attribute_name(:title) %></th>
-	      <th><%=i('icon-user')%> <%= model_class.human_attribute_name(:owner_id) %></th>
+	      <th><%=i('icon-eye-open')%> <%= model_class.human_attribute_name(:visibility) %></th>
 	      <th><%=i('icon-calendar')%> <%= model_class.human_attribute_name(:created_at) %></th>
 	      <th></th>
 	    </tr>
@@ -16,7 +16,7 @@
 	    <% @directories.each do |directory| %>
 	      <tr id="<%=directory_path(directory)%>">
 	        <td><%= directory.title %></td>
-	        <td><%= directory.owner.email %></td>
+	        <td><%= private_visibility_labeling(directory.private) %></td>
 	        <td><%=l directory.created_at, format: :short %></td>
 	        <td>
 	          <%= link_to i('icon-pencil'),
@@ -33,7 +33,7 @@
 	</table>
 <% else %>
 	<hr>
-	<%= info_alert(t('general.alerts.no_files_found')) %>
+	<%= info_alert(t('general.alerts.no_directories_found')) %>
 	<hr>
 <% end %>
 

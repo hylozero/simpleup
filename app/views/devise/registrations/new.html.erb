@@ -17,19 +17,8 @@
 
 
 
-<div class="navbar navbar-fixed-bottom">
-  <div class="navbar-inner">
-    <div class="container">
-    	<div class="row">
-    		<div class="span4">
-				<%- if controller_name != 'sessions' %>
-				  <%= link_to t('devise.links.log_in'), new_session_path(resource_name), class: "navbar-text"  %>
-				<% end -%>
-    		</div>
-    		<div class="span4">
-		      	<center><p class="navbar-text">&copy; <%="#{t('general.company_name')} - #{Time.now.year}"%></p></center>
-    		</div>
-    	</div>
-    </div>
-  </div>
-</div>
+<% content_for :bottom_navabar_left_content do %>
+	<%- if controller_name != 'sessions' %>
+		<%= link_to t('devise.links.log_in'), new_session_path(resource_name), class: "navbar-text navbar-bottom-link"  %>
+	<% end -%>
+<% end -%>

@@ -10,8 +10,10 @@
  *
  *= require_self
  *= require jquery.fileupload-ui
+ *= require dataTables/bootstrap/2/jquery.dataTables.bootstrap
  *= require_tree .
  */
+
 
 .form-auth-fields {
 	border: 1px solid #e5e5e5;
@@ -53,10 +55,9 @@
 	color: #dddddd;
 }
 
-.field_with_errors .message {
+.field_with_errors .message, .custom_error_message {
 	color: #b94a48;
 	    margin-bottom: 10px;
-    margin-top: -15px;
 }
 
 footer {

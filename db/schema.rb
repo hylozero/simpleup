@@ -11,14 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140826011456) do
+ActiveRecord::Schema.define(:version => 20140829215016) do
 
   create_table "directories", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.boolean  "private"
   end
+
+  create_table "directory_allowed_users", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "directory_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "directory_allowed_users", ["directory_id"], :name => "index_directory_allowed_users_on_directory_id"
+  add_index "directory_allowed_users", ["user_id"], :name => "index_directory_allowed_users_on_user_id"
 
   create_table "directory_owners", :force => true do |t|
     t.integer  "user_id"

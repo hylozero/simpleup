@@ -44,6 +44,25 @@
             <%= yield %>
           </div>
         </div><!--/row-->
+
+		<div class="navbar navbar-fixed-bottom">
+		  <div class="navbar-inner sa-navbar-fixed-bottom">
+		    <div class="container">
+		      <div class="row">
+		        <div class="span4">
+					<%= yield :bottom_navabar_left_content %>
+		        </div>
+		        <div class="span4">
+		            <center><p class="navbar-text">&copy; <%="#{t('general.company_name')} - #{Time.now.year}"%></p></center>
+		        </div>
+		        <div class="span4">
+					<%= yield :bottom_navabar_right_content %>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
     </div> <!-- /container -->
   </body>
 </html>

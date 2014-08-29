@@ -30,6 +30,7 @@ end
 gem 'jquery-rails'
 gem 'jquery-fileupload-rails'
 gem "paperclip", "~> 4.1"
+gem 'jquery-datatables-rails', '~> 2.2.3'
 
 
 # To use ActiveModel has_secure_password

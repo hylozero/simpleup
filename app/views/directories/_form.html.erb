@@ -11,6 +11,21 @@
       <%= f.text_area :description, :class => 'text_area span6' %>
     </div>
   </div>
+  <div class="control-group">
+    <%= f.label :private, :class => 'control-label' %>
+	<div class="controls">
+	    <%= f.label :private, :class => 'checkbox' do %>
+			<%= f.check_box :private  %>
+		<% end %>
+	</div>
+  </div>
+  <div class="control-group" id='allowed-users-div'>
+    <%= f.label :allowed_users, :class => 'control-label' %>
+	<div class="controls">
+		<%= f.collection_select :allowed_user_ids, User.where("id <> ?", current_user.id), :id, :name, {}, {multiple: true} %>
+		<%= show_custom_error(@directory, 'allowed_users') %>
+	</div>
+  </div>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

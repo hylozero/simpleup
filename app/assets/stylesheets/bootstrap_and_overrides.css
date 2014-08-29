@@ -36,3 +36,32 @@
 	}
 
 }
+
+.sa-navbar-fixed-bottom {
+	height: 100px;
+	background: none;
+	background-color: #ffffff;
+	box-shadow: none !important;
+	border: none;
+}
+
+.navbar-bottom-link {
+    border-radius: 2px;
+    padding: 10px;
+		border: 1px solid #cccccc;
+}
+
+.navbar-bottom-link:hover, .navbar-bottom-link:focus {
+	text-decoration: none;
+	background-color: #aaaaaa;
+	color: #fff;
+}
+
+.table td {
+	padding-left: 26px;
+}
+
+
+
+
+
