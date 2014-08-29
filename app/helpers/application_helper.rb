@@ -19,6 +19,36 @@ module ApplicationHelper
 		"<i class='#{i_class}'></i>".html_safe
 	end
 	
+  def link_to(name = nil, options = nil, html_options = nil, &block) 
+    begin  
+      Rails.application.routes.recognize_path(options)
+    rescue ActionController::RoutingError   
+      super   
+    else
+      path = Rails.application.routes.recognize_path(options)      
+      begin
+        path[:controller].singularize.camelize.constantize
+      rescue NameError
+        super
+      else
+        if can? path[:action].to_sym, path[:controller].singularize.camelize.constantize 
+          if html_options.try(:any?)
+            if html_options[:method] == :delete or html_options[:method] == 'delete'
+              if can? :destroy, path[:controller].singularize.camelize.constantize 
+                super
+              end
+            else
+              super
+            end
+          else
+            super
+          end
+        end
+      end
+    end
+  end
+
+	
 	def show_custom_error(object, attribute)
 	 if object.errors[attribute.to_sym].any?
 	   if object.errors[attribute.to_sym].count == 1

@@ -1,4 +1,6 @@
 class DirectoriesController < ApplicationController
+  load_and_authorize_resource
+  
   # GET /directories
   # GET /directories.json
   def index
