@@ -1,5 +1,6 @@
 class SuFilesController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :directory
+  load_and_authorize_resource :su_file, :through => :directory
   
   def index
     @directory = Directory.find(params[:directory_id])

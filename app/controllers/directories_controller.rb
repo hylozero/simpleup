@@ -4,7 +4,7 @@ class DirectoriesController < ApplicationController
   # GET /directories
   # GET /directories.json
   def index
-    @directories = Directory.where('private is null or private is false') + Directory.joins(:owners).where('directory_owners.user_id = ?', current_user.id) + Directory.joins(:allowed_users).where('directory_allowed_users.user_id = ?', current_user.id)
+    @directories = (Directory.where('private is null or private is false') + Directory.joins(:owners).where('directory_owners.user_id = ?', current_user.id) + Directory.joins(:allowed_users).where('directory_allowed_users.user_id = ?', current_user.id)).uniq
 
     respond_to do |format|
       format.html # index.html.erb
@@ -76,11 +76,20 @@ class DirectoriesController < ApplicationController
   # DELETE /directories/1.json
   def destroy
     @directory = Directory.find(params[:id])
-    @directory.destroy
+    begin
+      @directory.destroy
+    rescue ActiveRecord::DeleteRestrictionError
+      flash[:error] = 'Dependencia restrita'
+      respond_to do |format|
+        format.html { redirect_to @directory }
+        format.json { head :no_content }
+      end
 
-    respond_to do |format|
-      format.html { redirect_to directories_url }
-      format.json { head :no_content }
+    else
+      respond_to do |format|
+        format.html { redirect_to directories_url }
+        format.json { head :no_content }
+      end
     end
   end
 end
