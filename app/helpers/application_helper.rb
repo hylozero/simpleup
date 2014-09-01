@@ -31,10 +31,12 @@ module ApplicationHelper
       rescue NameError
         super
       else
-        if can? path[:action].to_sym, path[:controller].singularize.camelize.constantize 
+        object = (path.has_key?(:id) ? (eval("#{path[:controller].singularize.camelize.constantize}.find(#{path[:id]})")) : path[:controller].singularize.camelize.constantize)
+
+        if can? path[:action].to_sym, object
           if html_options.try(:any?)
             if html_options[:method] == :delete or html_options[:method] == 'delete'
-              if can? :destroy, path[:controller].singularize.camelize.constantize 
+              if can? :destroy, object
                 super
               end
             else
