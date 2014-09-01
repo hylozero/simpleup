@@ -19,34 +19,10 @@
 //= require_tree .
 
 $(document).ready(function(){
-	$('.table-hover.clicable tr').click(function() {
-    	window.location = $(this).attr('id');
+	$('.table-hover.clicable td:not(:last-child)').click(function() {
+    	window.location = $(this).parent().attr('id');
 	});
 });
-
-$(document).ready(function(){
-  $(".datatable").dataTable({
-    bProcessing: true,
-    bServerSide: true,
-    sDom: "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-    sPaginationType: "bootstrap",
-    oLanguage: {
-      sProcessing: "",
-      sLengthMenu: "Mostrar _MENU_ registros por pagina",
-      sZeroRecords: "Nenhum registro correspondente ao criterio encontrado",
-      sInfoEmpty: "Exibindo 0 a 0 de 0 registros",
-      sInfo: "Exibindo de _START_ a _END_ de _TOTAL_ registros",
-      sInfoFiltered: "",
-      sSearch: "Procurar: ",
-      oPaginate: {
-        sFirst: "Primeiro",
-        sPrevious: "Anterior",
-        sNext: "Próximo",
-        sLast: "Último"
-      }
-    }
-  });
-})
 
 $(document).ready(function(){
 	if($('#directory_private:checked').length > 0) {
@@ -63,3 +39,19 @@ $(document).ready(function(){
 		}
 	})
 })
+
+$(function() {
+	$("dd").each(function() {
+		if ($(this).html().length === 0) {
+			$(this).css("color", "red");
+			$(this).css("font-weight", "bold");
+			$(this).html("#");
+		} else {
+			$("ul").each(function() {
+				if ($(this).html().length === 0) {
+					$(this).remove();
+				}
+			});
+		}
+	});
+});

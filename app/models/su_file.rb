@@ -16,5 +16,4 @@ class SuFile < ActiveRecord::Base
       "delete_type" => "DELETE" 
     }
   end
-
 end

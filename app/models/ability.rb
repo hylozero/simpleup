@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     if user.admin
-      can :manage, all
+      can :manage, :all
     else
       can :read, Directory do |directory|
         directory.private.nil? or directory.private == false or directory.owners.map {|u| u.id}.include?(user.id) or directory.allowed_users.map {|u| u.id}.include?(user.id)
@@ -14,7 +14,7 @@ class Ability
       end
 
       can [:create, :update, :destroy, :read], SuFile do |su_file|
-        su_file.directory.owners.map {|u| u.id}.include?(user.id) or su_file.directory.allowed_users.map {|u| u.id}.include?(user.id)        
+        su_file.directory.owners.map {|u| u.id}.include?(user.id)
       end  
     end
   end

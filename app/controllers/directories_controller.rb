@@ -1,14 +1,15 @@
+require 'datatables/directories_datatable.rb'
+
 class DirectoriesController < ApplicationController
   load_and_authorize_resource
   
   # GET /directories
   # GET /directories.json
   def index
-    @directories = (Directory.where('private is null or private is false') + Directory.joins(:owners).where('directory_owners.user_id = ?', current_user.id) + Directory.joins(:allowed_users).where('directory_allowed_users.user_id = ?', current_user.id)).uniq
-
+    # @directories = (Directory.where('private is null or private is false') + Directory.joins(:owners).where('directory_owners.user_id = ?', current_user.id) + Directory.joins(:allowed_users).where('directory_allowed_users.user_id = ?', current_user.id)).uniq
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @directories }
+      format.json { render :json => DirectoriesDatatable.new(view_context, current_user)}
     end
   end
 

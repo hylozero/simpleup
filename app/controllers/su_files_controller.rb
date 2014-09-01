@@ -22,7 +22,6 @@ class SuFilesController < ApplicationController
   end
 
   def create
-    params[:su_file][:upload] = params[:su_file][:upload].first
     @su_file = SuFile.new(params[:su_file])
     @su_file.directory_id = params[:directory_id]
 

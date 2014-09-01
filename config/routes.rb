@@ -1,6 +1,6 @@
 SimpleUp::Application.routes.draw do
-  resources :directories do
-      resources :su_files
+  resources :directories, :path => I18n.t('general.routes.directory_path_name') do
+      resources :su_files, :path => I18n.t('general.routes.su_file_path_name')
   end
 
   devise_for :users, :controllers => {

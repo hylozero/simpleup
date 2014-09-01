@@ -47,7 +47,9 @@
             <span class="icon-bar"></span>
           </a>
 		  <%= link_to t('general.app_name'), root_path, class: 'brand' %>
-		  <%= link_to("<i class='icon-off'></i>".html_safe, destroy_user_session_path, class: 'navbar-text pull-right', method: :delete) %>
+		  <div class="pull-right" id="top-right-menu">
+		  	<span class='navbar-text username'><%= "#{current_user.name} " %></span><%= link_to("<i class='icon-off'></i>".html_safe, destroy_user_session_path, class: 'navbar-text off-button', method: :delete) %>
+		  </div>
         </div>
       </div>
     </div>
@@ -68,6 +70,31 @@
       </footer>
 
     </div> <!-- /container -->
+
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function(){
+		  $(".static_datatable").dataTable({
+		    bProcessing: true,
+		    sDom: "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+		    sPaginationType: "bootstrap",
+		    oLanguage: {
+		      sProcessing: "",
+		      sLengthMenu: "",
+		      sZeroRecords: "<%=t('datatable.sZeroRecords')%>",
+		      sInfoEmpty: "<%=t('datatable.sInfoEmpty')%>",
+		      sInfo: "<%=t('datatable.sInfo')%>",
+		      sInfoFiltered: "",
+		      sSearch: "<%=t('datatable.sSearch')%>",
+		      oPaginate: {
+		        sFirst: "<%=t('datatable.oPaginate.sFirst')%>",
+		        sPrevious: "<%=t('datatable.oPaginate.sPrevious')%>",
+		        sNext: "<%=t('datatable.oPaginate.sNext')%>",
+		        sLast: "<%=t('datatable.oPaginate.sLast')%>"
+		      }
+		    }
+		  });
+		});
+	</script>
 
   </body>
 </html>

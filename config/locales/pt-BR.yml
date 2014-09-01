@@ -9,6 +9,20 @@ pt-BR:
     alerts:
       no_directories_found: "Nenhum diretório público encontrado. Cadastre um diretório público e volte novamente!"
       no_files_found: "Nenhum arquivo encontrado. Clique em \"Gerenciar arquivos\" para fazer upload!"
+    routes:
+      directory_path_name: "diretorios"
+      su_file_path_name: "arquivos"
+  datatable:
+    sZeroRecords: "Nenhum registro correspondente ao criterio encontrado"
+    sLengthMenu: "Mostrar _MENU_ registros por pagina"
+    sInfoEmpty: "Exibindo 0 a 0 de 0 registros"
+    sInfo: "Exibindo de _START_ a _END_ de _TOTAL_ registros"
+    sSearch: "Procurar: "
+    oPaginate:
+      sFirst: "Primeiro"
+      sPrevious: "Anterior"
+      sNext: "Próximo"
+      sLast: "Último"
   date:
     abbr_day_names:
     - Dom
@@ -215,6 +229,7 @@ pt-BR:
   activerecord:
     models:
       directory: "Diretório"
+      su_file: "Arquivo"
     attributes:
       directory:
         title: "Título"

@@ -1,48 +1,51 @@
 <%- title("#{t('general.labels.upload')} - #{@directory.title}") -%>
 <%- tag_title("#{t('general.labels.upload')} - #{@directory.title}") -%>
+ 
 
+  
+	  <%= form_for [:directory, SuFile.new], :html => { :multipart => true, :id => "fileupload"  } do |f| %>
+	    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+	    <div class="row fileupload-buttonbar">
+	      <div class="span5">
+			<% if @directory.owners.map {|u| u.id}.include?(current_user.id) %>
+				<div id="upload-control">
+			       <!-- The fileinput-button span is used to style the file input field as button -->
+			        <span class="btn btn-success fileinput-button">
+			          <i class="icon-plus icon-white"></i>
+			          <span><%=t('activerecord.attributes.su_file.add_files')%></span>
+			          <%= f.file_field :upload, :multiple => true %>
+			        </span>
+			        <button type="submit" class="btn btn-primary start">
+			          <i class="icon-upload icon-white"></i>
+			          <span><%=t('activerecord.attributes.su_file.start_upload')%></span>
+			        </button>
+			        <button type="reset" class="btn btn-warning cancel">
+			          <i class="icon-ban-circle icon-white"></i>
+			          <span><%=t('activerecord.attributes.su_file.cancel_upload')%></span>
+			        </button>
+			        <button type="button" class="btn btn-danger delete">
+			          <i class="icon-trash icon-white"></i>
+			          <span><%=t('activerecord.attributes.su_file.delete')%></span>
+			        </button>
+			        <input type="checkbox" class="toggle">
+				</div>
+			<% end %>
+	      </div>
+	      <div class="span6">
+	        <!-- The global progress bar -->
+	        <div class="progress progress-success progress-striped active fade">
+	          <div class="bar" style="width:0%;"></div>
+	        </div>
+	      </div>
+	    </div>
+		<br/>
 
-  <%= form_for [:directory, SuFile.new], :html => { :multipart => true, :id => "fileupload"  } do |f| %>
-    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-    <div class="row fileupload-buttonbar">
-      <div class="span5">
-		<div id="upload-control">
-	       <!-- The fileinput-button span is used to style the file input field as button -->
-	        <span class="btn btn-success fileinput-button">
-	          <i class="icon-plus icon-white"></i>
-	          <span><%=t('activerecord.attributes.su_file.add_files')%></span>
-	          <%= f.file_field :upload, :multiple => true %>
-	        </span>
-	        <button type="submit" class="btn btn-primary start">
-	          <i class="icon-upload icon-white"></i>
-	          <span><%=t('activerecord.attributes.su_file.start_upload')%></span>
-	        </button>
-	        <button type="reset" class="btn btn-warning cancel">
-	          <i class="icon-ban-circle icon-white"></i>
-	          <span><%=t('activerecord.attributes.su_file.cancel_upload')%></span>
-	        </button>
-	        <button type="button" class="btn btn-danger delete">
-	          <i class="icon-trash icon-white"></i>
-	          <span><%=t('activerecord.attributes.su_file.delete')%></span>
-	        </button>
-	        <input type="checkbox" class="toggle">
-		</div>
-      </div>
-      <div class="span6">
-        <!-- The global progress bar -->
-        <div class="progress progress-success progress-striped active fade">
-          <div class="bar" style="width:0%;"></div>
-        </div>
-      </div>
-    </div>
-	<br/>
-    <!-- The loading indicator is shown during image processing -->
-    <div class="fileupload-loading"></div>
-    <!-- The table listing the files available for upload/download -->
-    <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
-    </table>
+	    <!-- The loading indicator is shown during image processing -->
+	    <div class="fileupload-loading"></div>
+
+	    <!-- The table listing the files available for upload/download -->
+	    <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
   <% end %>
-
 
 <script>
   var fileUploadErrors = {
@@ -105,13 +108,14 @@
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
         <td colspan="2"></td>
         {% } %}
-      <td class="delete">
-        <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
-          <i class="icon-trash icon-white"></i>
-          <span>{%=locale.fileupload.destroy%}</span>
-        </button>
-        <input type="checkbox" name="delete" value="1">
-      </td>
+	    <% if @directory.owners.map {|u| u.id}.include?(current_user.id) %>
+	        <td class="delete" id="{%=file.id%}">
+	          <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+	            <i class="icon-trash icon-white"></i>
+	          </button>
+	          <input type="checkbox" name="delete" value="1">
+	        </td>
+	    <% end %>
     </tr>
     {% } %}
 </script>
@@ -119,7 +123,9 @@
 <script type="text/javascript" charset="utf-8">
   $(function () {
       // Initialize the jQuery File Upload widget:
-      $('#fileupload').fileupload();
+      $('#fileupload').fileupload({
+		paramName: 'su_file[upload]'
+	  });
       // 
       // Load existing files:
       $.getJSON($('#fileupload').prop('action'), function (files) {
@@ -140,6 +146,6 @@
 </script>
 
 <div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              directory_path(@directory.id), :class => 'btn'  %>
+  <%= link_to "#{i("icon-step-backward")} #{t('.back', :default => t("helpers.links.back"))}".html_safe,
+              :back, :class => 'btn'  %>
 </div>

@@ -2,41 +2,51 @@
 <%- title(model_class.model_name.human.titleize.pluralize) -%>
 <%- tag_title(model_class.model_name.human.titleize.pluralize) -%>
 
-<% if @directories.any? %>
-	<table class="table table-striped table-hover clicable datatable">
+	<table class="table table-striped table-hover clicable ajax_datatable">
 	  <thead>
 	    <tr>
 	      <th><%=i('icon-folder-close')%> <%= model_class.human_attribute_name(:title) %></th>
 	      <th><%=i('icon-eye-open')%> <%= model_class.human_attribute_name(:visibility) %></th>
 	      <th><%=i('icon-calendar')%> <%= model_class.human_attribute_name(:created_at) %></th>
-	      <th></th>
+		  <th></th>
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <% @directories.each do |directory| %>
-	      <tr id="<%=directory_path(directory)%>">
-	        <td><%= directory.title %></td>
-	        <td><%= private_visibility_labeling(directory.private) %></td>
-	        <td><%=l directory.created_at, format: :short %></td>
-	        <td>
-	          <%= link_to i('icon-pencil'),
-	                      edit_directory_path(directory), :class => 'btn btn-mini' %>
-	          <%= link_to i('icon-trash'),
-	                      directory_path(directory),
-	                      :method => :delete,
-	                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-	                      :class => 'btn btn-mini btn-danger' %>
-	        </td>
-	      </tr>
-	    <% end %>
-	  </tbody>
+  	  </tbody>
 	</table>
-<% else %>
-	<hr>
-	<%= info_alert(t('general.alerts.no_directories_found')) %>
-	<hr>
-<% end %>
 
+<hr>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_directory_path,
-            :class => 'btn btn-primary' %>
+            :class => 'btn btn-primary pull-right' %>
+
+<div style="clear: both;"></div>
+
+
+<script type="text/javascript" charset="utf-8">
+	jQuery(function() {
+	    $(".ajax_datatable").dataTable({
+		    bProcessing: true,
+		    bServerSide: true,
+		    sAjaxSource: "/<%=I18n.t('general.routes.directory_path_name')%>.json",
+		    sDom: "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+		    sPaginationType: "bootstrap",
+		    oLanguage: {
+		      sProcessing: "",
+		      sLengthMenu: "Mostrar _MENU_ registros por pagina",
+		      sZeroRecords: "Nenhum registro correspondente ao criterio encontrado",
+		      sInfoEmpty: "Exibindo 0 a 0 de 0 registros",
+		      sInfo: "Exibindo de _START_ a _END_ de _TOTAL_ registros",
+		      sInfoFiltered: "",
+		      sSearch: "Procurar: ",
+		      oPaginate: {
+		        sFirst: "Primeiro",
+		        sPrevious: "Anterior",
+		        sNext: "Próximo",
+		        sLast: "Último"
+		      }
+		    }
+	  });
+	  $('#discipline-classes-index-datatable_filter input').attr('placeholder', 'Turma, código ou disciplina');
+	});	
+</script>
