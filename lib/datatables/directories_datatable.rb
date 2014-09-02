@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class DirectoriesDatatable
-  delegate :params, :h, :link_to, :l, :private_visibility_labeling, :directory_su_files_path, :edit_directory_path, :directory_path, :i, :to => :@view
+  delegate :params, :h, :link_to, :l, :private_visibility_labeling, :directory_su_files_path, :edit_directory_path, :directory_path, :i, :can?, :to => :@view
 
   def initialize(view, current_user)
     @view = view
@@ -25,7 +25,7 @@ class DirectoriesDatatable
         (link_to d.title, d),
         private_visibility_labeling(d.private), 
         d.created_at,
-        "#{(link_to i('icon-file'), directory_su_files_path(d), :class => 'btn btn-mini', :"data-placement" => 'top', :"data-toggle" => 'tooltip', :"data-original-title" => I18n.t('activerecord.models.su_file').pluralize, :rel => 'tooltip')} 
+        "#{link_to i('icon-file'), directory_su_files_path(d), :class => 'btn btn-mini', :"data-placement" => 'top', :"data-toggle" => 'tooltip', :"data-original-title" => I18n.t('activerecord.models.su_file').pluralize, :rel => 'tooltip'} 
          #{link_to i('icon-pencil'), edit_directory_path(d), :class => 'btn btn-mini'}
          #{link_to i('icon-trash'), directory_path(d), :method => :delete, :data => { :confirm => I18n.t('.confirm', :default => I18n.t('helpers.links.confirm', :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger'}"
         ]
@@ -39,7 +39,7 @@ class DirectoriesDatatable
   def fetch_directories
     directories = Directory
       .joins("LEFT JOIN \"directory_owners\" ON \"directory_owners\".\"directory_id\" = \"directories\".\"id\" LEFT JOIN \"directory_allowed_users\" ON \"directory_allowed_users\".\"directory_id\" = \"directories\".\"id\"")
-      .where('directory_owners.user_id = ? or directory_allowed_users.user_id = ? or directories.private is null or directories.private is false', @current_user.id, @current_user.id)
+      .where('(directory_owners.user_id = ? or directory_allowed_users.user_id = ?) or directories.private is null or directories.private is false', @current_user.id, @current_user.id)
     if params[:sSearch].present?
       directories = Directory
         .joins("LEFT JOIN \"directory_owners\" ON \"directory_owners\".\"directory_id\" = \"directories\".\"id\" LEFT JOIN \"directory_allowed_users\" ON \"directory_allowed_users\".\"directory_id\" = \"directories\".\"id\"")

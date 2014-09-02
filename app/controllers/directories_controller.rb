@@ -18,9 +18,21 @@ class DirectoriesController < ApplicationController
   def show
     @directory = Directory.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @directory }
+    if params[:allowed_users_json]
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @directory.allowed_users.select('users.id, users.name') }
+      end
+    elsif params[:owners_json]
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @directory.owners.select('users.id, users.name').where('users.id <> ?', current_user.id) }
+      end
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @directory }
+      end
     end
   end
 
@@ -44,11 +56,14 @@ class DirectoriesController < ApplicationController
   # POST /directories.json
   def create
     @directory = Directory.new(params[:directory])
-    @directory.owners << [current_user]
+    @directory.original_owner_id = current_user.id
+    
+    @directory.allowed_user_ids = params[:directory][:allowed_user_ids].first.split(',') unless params[:directory][:allowed_user_ids].blank?
+    @directory.owner_ids = params[:directory][:owner_ids].first.split(',') unless params[:directory][:owner_ids].blank?
 
     respond_to do |format|
       if @directory.save
-        format.html { redirect_to @directory, notice: 'Directory was successfully created.' }
+        format.html { redirect_to @directory, notice: t('general.notices.directory.directory_was_successfully_created') }
         format.json { render json: @directory, status: :created, location: @directory }
       else
         format.html { render action: "new" }
@@ -61,10 +76,12 @@ class DirectoriesController < ApplicationController
   # PUT /directories/1.json
   def update
     @directory = Directory.find(params[:id])
-
+    params[:directory][:allowed_user_ids] = params[:directory][:allowed_user_ids].first.split(',')
+    params[:directory][:owner_ids] = params[:directory][:owner_ids].first.split(',')
+    
     respond_to do |format|
       if @directory.update_attributes(params[:directory])
-        format.html { redirect_to @directory, notice: 'Directory was successfully updated.' }
+        format.html { redirect_to @directory, notice: t('general.notices.directory.directory_was_successfully_updated') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

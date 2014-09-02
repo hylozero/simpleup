@@ -22,10 +22,17 @@
   <div class="control-group" id='allowed-users-div'>
     <%= f.label :allowed_users, :class => 'control-label' %>
 	<div class="controls">
-		<%= f.collection_select :allowed_user_ids, User.where("id <> ?", current_user.id), :id, :name, {}, {multiple: true} %>
-		<%= show_custom_error(@directory, 'allowed_users') %>
+		<%= hidden_field_tag "directory[allowed_user_ids][]", nil, :style => 'width: 300px' %>
+		<%= show_custom_error(@directory, 'allowed_user_ids') %>
 	</div>
   </div>
+  <div class="control-group" id='allowed-users-div'>
+    <%= f.label :add_owner, :class => 'control-label' %>
+	<div class="controls">
+		<%= hidden_field_tag "directory[owner_ids][]", nil, :style => 'width: 300px' %>
+	</div>
+  </div>
+  <%= render partial: 'directory_allowed_users_select2_config' %>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>

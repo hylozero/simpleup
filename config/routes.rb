@@ -1,11 +1,13 @@
 SimpleUp::Application.routes.draw do
-  resources :directories, :path => I18n.t('general.routes.directory_path_name') do
-      resources :su_files, :path => I18n.t('general.routes.su_file_path_name') 
+  resources :directories, path: I18n.t('general.routes.directory_path_name') do
+      resources :su_files, path: I18n.t('general.routes.su_file_path_name') 
   end
+  
+  resources :users, path: I18n.t('general.routes.user_path_name')
   
   get "/#{I18n.t('general.routes.directory_path_name')}/:directory_id/#{I18n.t('general.routes.su_file_path_name')}/download/:file_name", to: 'su_files#download', :constraints => {:file_name => /[^\/]+/}
 
-  devise_for :users, :controllers => {
+  devise_for :users, path_prefix: 'u', controllers: {
     :passwords => 'auth/passwords',
     :registrations => "auth/registrations",
     :sessions => 'auth/sessions' }

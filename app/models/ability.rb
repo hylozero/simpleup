@@ -6,11 +6,11 @@ class Ability
       can :manage, :all
     else
       can :read, Directory do |directory|
-        directory.private.nil? or directory.private == false or directory.owners.map {|u| u.id}.include?(user.id) or directory.allowed_users.map {|u| u.id}.include?(user.id)
+        directory.private.nil? or directory.private == false or directory.owners.map {|u| u.id}.include?(user.id) or directory.allowed_users.map {|u| u.id}.include?(user.id) or directory.original_owner_id == user.id
       end
       can :create, Directory
-      can [:edit, :destroy], Directory do |directory|
-        directory.owners.map {|u| u.id}.include?(user.id)
+      can [:update, :destroy], Directory do |directory|
+        directory.owners.map {|u| u.id}.include?(user.id) or directory.original_owner_id == user.id
       end
 
       can [:read, :download], SuFile do |su_file|
@@ -18,7 +18,7 @@ class Ability
       end  
 
       can [:create, :destroy], SuFile do |su_file|
-        su_file.directory.owners.map {|u| u.id}.include?(user.id)
+        su_file.directory.owners.map {|u| u.id}.include?(user.id) or su_file.directory.original_owner_id == user.id
       end  
     end
   end

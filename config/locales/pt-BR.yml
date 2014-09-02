@@ -9,9 +9,17 @@ pt-BR:
     alerts:
       no_directories_found: "Nenhum diretório público encontrado. Cadastre um diretório público e volte novamente!"
       no_files_found: "Nenhum arquivo encontrado. Clique em \"Gerenciar arquivos\" para fazer upload!"
+    notices:
+      directory:
+        directory_was_successfully_updated: 'Diretório atualizado com sucesso'
+        directory_was_successfully_created: 'Diretório criado com sucesso'
     routes:
       directory_path_name: "diretorios"
       su_file_path_name: "arquivos"
+      user_path_name: "usuarios"
+  select2:
+    formatSearching: "Buscando..."
+    formatNoMatches: "Nenhum resultado encontrado"
   datatable:
     sZeroRecords: "Nenhum registro correspondente ao criterio encontrado"
     sLengthMenu: "Mostrar _MENU_ registros por pagina"
@@ -236,6 +244,7 @@ pt-BR:
         description: "Descrição"
         owner_id: "Proprietário(s) do álbum"
         owner: "Proprietário(s) do álbum"
+        add_owner: "Adicionar proprietário(s)"
         created_at: "Criado em"
         owners: "Proprietários"
         private: "Privado"

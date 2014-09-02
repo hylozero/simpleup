@@ -32,7 +32,8 @@ module ApplicationHelper
         super
       else
         object = (path.has_key?(:id) ? (eval("#{path[:controller].singularize.camelize.constantize}.find(#{path[:id]})")) : path[:controller].singularize.camelize.constantize)
-
+        puts path
+        
         if can? path[:action].to_sym, object
           if html_options.try(:any?)
             if html_options[:method] == :delete or html_options[:method] == 'delete'
