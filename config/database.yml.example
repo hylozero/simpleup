@@ -1,6 +1,6 @@
 development:
   adapter: postgresql
-  database: hylo-upload-dev
+  database: simple-upload-dev
   host: localhost
   username: postgres
   password: postgres
@@ -9,7 +9,7 @@ development:
 
 test:
   adapter: postgresql
-  database: hylo-upload-tst
+  database: simple-upload-tst
   host: localhost
   username: postgres
   password: postgres
@@ -19,7 +19,7 @@ test:
 
 production:
   adapter: postgresql
-  database: hylo-upload-prod
+  database: simple-upload-prod
   host: localhost
   username: postgres
   password: postgres
