@@ -11,14 +11,12 @@ class SuFilesController < ApplicationController
       format.json { render json: @su_files.map{|sf| sf.to_jq_upload } }
     end
   end
-
-  def show
-  end
-
-  def new
-  end
-
-  def edit
+  
+  def download
+    su_file = SuFile.find_by_upload_file_name(params[:file_name])
+    if File.exist?(path = su_file.upload.path)
+      send_file path, content_type: su_file.upload_content_type
+    end
   end
 
   def create
@@ -39,9 +37,6 @@ class SuFilesController < ApplicationController
       end
     end
 
-  end
-
-  def update
   end
 
   def destroy

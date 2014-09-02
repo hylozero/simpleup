@@ -13,7 +13,11 @@ class Ability
         directory.owners.map {|u| u.id}.include?(user.id)
       end
 
-      can [:create, :update, :destroy, :read], SuFile do |su_file|
+      can [:read, :download], SuFile do |su_file|
+        su_file.directory.owners.map {|u| u.id}.include?(user.id) or su_file.directory.allowed_users.map {|u| u.id}.include?(user.id)
+      end  
+
+      can [:create, :destroy], SuFile do |su_file|
         su_file.directory.owners.map {|u| u.id}.include?(user.id)
       end  
     end

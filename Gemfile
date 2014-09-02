@@ -32,6 +32,7 @@ gem 'jquery-fileupload-rails'
 gem "paperclip", "~> 4.1"
 gem 'jquery-datatables-rails', '~> 2.2.3'
 gem 'will_paginate'
+gem 'aws-sdk'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
