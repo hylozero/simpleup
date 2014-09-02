@@ -5,4 +5,4 @@ basic directory share between users and ajax file upload. Feel free to fork it.
 
 == Visit
 
-* [Database Authenticatable](http://rubydoc.info/github/plataformatec/devise/master/Devise/Models/DatabaseAuthenticatable)
+* [](http://rubydoc.info/github/plataformatec/devise/master/Devise/Models/DatabaseAuthenticatable)
