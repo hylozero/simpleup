@@ -39,11 +39,11 @@ class DirectoriesDatatable
   def fetch_directories
     directories = Directory
       .joins("LEFT JOIN \"directory_owners\" ON \"directory_owners\".\"directory_id\" = \"directories\".\"id\" LEFT JOIN \"directory_allowed_users\" ON \"directory_allowed_users\".\"directory_id\" = \"directories\".\"id\"")
-      .where('(directory_owners.user_id = ? or directory_allowed_users.user_id = ?) or directories.private is null or directories.private is false', @current_user.id, @current_user.id)
+      .where('directory_owners.user_id = ? or directory_allowed_users.user_id = ? or directories.private is null or directories.private is false or directories.original_owner_id = ?', @current_user.id, @current_user.id, @current_user.id)
     if params[:sSearch].present?
       directories = Directory
         .joins("LEFT JOIN \"directory_owners\" ON \"directory_owners\".\"directory_id\" = \"directories\".\"id\" LEFT JOIN \"directory_allowed_users\" ON \"directory_allowed_users\".\"directory_id\" = \"directories\".\"id\"")
-        .where('directory_owners.user_id = ? or directory_allowed_users.user_id = ? or directories.private is null or directories.private is false', @current_user.id, @current_user.id)
+        .where('directory_owners.user_id = ? or directory_allowed_users.user_id = ? or directories.private is null or directories.private is false or directories.original_owner_id = ?', @current_user.id, @current_user.id, @current_user.id)
         .where('(TRANSLATE(lower(directories.title), \'áéíóúàèìòùãõâêîôôäëïöüçÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇ\', \'aeiouaeiouaoaeiooaeioucAEIOUAEIOUAOAEIOOAEIOUC\')) like ?', "%#{params[:sSearch].downcase}%")
         .order("#{sort_column} #{sort_direction}")
     end
