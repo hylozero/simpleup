@@ -16,6 +16,7 @@ basic directory sharing between users and ajax file upload. Default language: Po
 * [jquery-datatables-rails](https://github.com/rweng/jquery-datatables-rails)
 * [will_paginate](https://github.com/mislav/will_paginate)
 * [select2-rails](https://github.com/argerim/select2-rails)
+* [railscats](https://railscats.com)
 
 ## Running the app
 
