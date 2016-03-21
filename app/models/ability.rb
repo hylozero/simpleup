@@ -5,9 +5,10 @@ class Ability
     if user.admin
       can :manage, :all
     else
-      can :read, Directory do |directory|
+      can [:compress_and_download, :read], Directory do |directory|
         directory.private.nil? or directory.private == false or directory.owners.map {|u| u.id}.include?(user.id) or directory.allowed_users.map {|u| u.id}.include?(user.id) or directory.original_owner_id == user.id
       end
+
       can :create, Directory
       can [:update, :destroy], Directory do |directory|
         directory.owners.map {|u| u.id}.include?(user.id) or directory.original_owner_id == user.id

@@ -1,5 +1,13 @@
 pt-BR:
   general:
+    buttons:
+      su_file:
+        manage_files: "Gerenciar Arquivos"
+      directory:
+        compress_and_download: "Baixar todos os arquivos"
+    placeholders:
+      directory:
+        short_description: "Descrição breve (opcional)"
     company_name: "hyloapps"
     app_name: "SimpleUp"
     links:
@@ -127,6 +135,9 @@ pt-BR:
       month: Mês
       second: Segundo
       year: Ano
+  warnings:
+    directory:
+      no_files_found: "Nenhum arquivo encontrado"
   errors:
     format: ! '%{attribute} %{message}'
     messages:
@@ -265,3 +276,6 @@ pt-BR:
         cancel_upload: "Cancelar"
         add_files: "Adicionar"
         delete: "Deletar"
+        description: "Descrição"
+        type: "Tipo de Arquivo"
+        created_at: "Enviado em"

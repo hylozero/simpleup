@@ -5,7 +5,7 @@
   
 	  <%= form_for [:directory, SuFile.new], :html => { :multipart => true, :id => "fileupload"  } do |f| %>
 	    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-	    <div class="row fileupload-buttonbar">
+	    <div class="row-fluid fileupload-buttonbar">
 	      <div class="span5">
 			<% if can? :create, SuFile.new(:directory_id => @directory.id) %>
 				<div id="upload-control">
@@ -63,6 +63,9 @@
   {% for (var i=0, file; file=o.files[i]; i++) { %}
   <tr class="template-upload fade">
     <td class="preview"><span class="fade"></span></td>
+    <td class="description"><span>
+      <input id="su_file_description" type="text" style="width: 98%;" placeholder="<%= t('general.placeholders.directory.short_description') %>" name="su_file[description]"> 
+      </span></td>
     <td class="name"><span>{%=file.name%}</span></td>
     <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
     {% if (file.error) { %}
@@ -94,23 +97,25 @@
   {% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-download fade">
       {% if (file.error) { %}
-        <td></td>
-        <td class="name"><span>{%=file.name%}</span></td>
+        <td class="preview"></td>
+        <td class="name" style='width: 6%;'><span>{%=file.name%}</span></td>
+        <td class="description"><span>{%=file.description%}</span></td>
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
         <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
         {% } else { %}
         <td class="preview">{% if (file.thumbnail_url) { %}
-          <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+          <i class="{%=file.thumbnail_url%}" style="font-size: 40px;"></i>
           {% } %}</td>
         <td class="name">
-          <a href="/<%=I18n.t('general.routes.directory_path_name')%>/<%=@directory.id%>/<%=I18n.t('general.routes.su_file_path_name')%>/download/{%=file.name%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
+          <a href="/<%=I18n.t('general.routes.directory_path_name')%>/<%=@directory.id%>/<%=I18n.t('general.routes.su_file_path_name')%>/download/{%=file.name%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">Baixar</a>
         </td>
+        <td class="description"><span>{%=file.description%}</span></td>
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
         <td colspan="2"></td>
         {% } %}
-	    <% if @directory.owners.map {|u| u.id}.include?(current_user.id) %>
+	    <% if @directory.owners.map {|u| u.id}.include?(current_user.id) or @directory.original_owner == current_user%>
 	        <td class="delete" id="{%=file.id%}">
-	          <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+	          <button class="btn btn-danger btn-mini" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
 	            <i class="icon-trash icon-white"></i>
 	          </button>
 	          <input type="checkbox" name="delete" value="1">
@@ -124,8 +129,29 @@
   $(function () {
       // Initialize the jQuery File Upload widget:
       $('#fileupload').fileupload({
-		paramName: 'su_file[upload]'
-	  });
+		    paramName: 'su_file[upload]'
+	    }).bind('fileuploadsubmit', function (e, data) {
+        var inputs = data.context.find(':input');
+        if (inputs.filter(function () {
+                return !this.value && $(this).prop('required');
+            }).first().focus().length) {
+            data.context.find('button').prop('disabled', false);
+            return false;
+        }
+        data.formData = inputs.serializeArray();
+      });
+
+      $('#fileupload').bind('fileuploadsubmit', function (e, data) {
+        var inputs = data.context.find(':input');
+        if (inputs.filter(function () {
+                return !this.value && $(this).prop('required');
+            }).first().focus().length) {
+            data.context.find('button').prop('disabled', false);
+            return false;
+        }
+        data.formData = inputs.serializeArray();
+      });
+
       // 
       // Load existing files:
       $.getJSON($('#fileupload').prop('action'), function (files) {

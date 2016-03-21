@@ -1,6 +1,7 @@
 SimpleUp::Application.routes.draw do
   resources :directories, path: I18n.t('general.routes.directory_path_name') do
-      resources :su_files, path: I18n.t('general.routes.su_file_path_name') 
+    get 'compress_and_download', path: 'download'
+    resources :su_files, path: I18n.t('general.routes.su_file_path_name') 
   end
   
   resources :users, path: I18n.t('general.routes.user_path_name')

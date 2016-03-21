@@ -110,4 +110,20 @@ class DirectoriesController < ApplicationController
       end
     end
   end
+
+  def compress_and_download
+    directory = Directory.find(params[:directory_id])
+    system "mkdir tmp/#{directory.id}"
+    directory.su_files.each do |file|
+      system "cp #{file.upload.path} tmp/#{directory.id}"
+    end
+    zip_file_name = "#{directory.title.parameterize}.zip"
+    zip_file = system "zip -r tmp/#{zip_file_name} tmp/#{directory.id}" 
+    zip_file_path = "tmp/#{zip_file_name}"
+    File.open(zip_file_path, 'r') do |f|
+      send_data f.read, type: "application/zip"
+    end
+    File.delete(zip_file_path)
+    system "rm -rf tmp/#{directory.id}"
+  end
 end

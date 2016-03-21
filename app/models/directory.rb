@@ -1,7 +1,7 @@
 class Directory < ActiveRecord::Base
   attr_accessible :description, :owner_id, :title, :private, :allowed_user_ids, :owner_ids, :su_files
 
-  has_many :su_files, dependent: :restrict
+  has_many :su_files, dependent: :destroy
     
   has_many :owners, class_name: 'User', through: :directory_owners
   has_many :directory_owners, dependent: :destroy
@@ -16,6 +16,11 @@ class Directory < ActiveRecord::Base
   
   before_update :destroy_allowed_users_if_public
   
+
+  def join_and_compress
+    
+  end
+
   def destroy_allowed_users_if_public
     if self.private == false or self.private.nil?
       self.allowed_users.destroy_all

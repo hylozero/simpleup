@@ -1,4 +1,14 @@
 module ApplicationHelper
+  def w_msg(msg, options ={})
+    html = <<-HTML
+      <div class="alert alert-warning alert-dismissible hidden-print" role="alert" style="#{options[:style]}" class="#{options[:class]}" id="#{options[:id]}">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Atenção:</strong> #{msg}
+      </div>
+    HTML
+    html.html_safe
+  end
+
   def info_alert(msg)
     "<div class='alert alert-info'>#{msg}</div>".html_safe
   end
@@ -49,6 +59,16 @@ module ApplicationHelper
         end
       end
     end
+  end
+
+  def w_msg(msg, options ={})
+    html = <<-HTML
+      <div class="alert alert-warning alert-dismissible hidden-print" role="alert" style="#{options[:style]}" class="#{options[:class]}" id="#{options[:id]}">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Atenção:</strong> #{msg}
+      </div>
+    HTML
+    html.html_safe
   end
 
 	

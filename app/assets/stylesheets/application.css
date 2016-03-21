@@ -11,9 +11,30 @@
  *= require_self
  *= require jquery.fileupload-ui
  *= require dataTables/bootstrap/2/jquery.dataTables.bootstrap
+ *= require font-awesome
  *= require select2
  *= require_tree .
  */
+
+.template-download .preview {
+	width: 6%;
+}
+
+.template-download .name {
+	width: 6%;
+}
+
+.template-download .description {
+	width: 75%;
+}
+
+.template-download .size {
+	width: 8%; text-align: right !important;
+}
+
+#main {
+    margin-top: 65px;
+}
 
 .navbar-text.username {
 	font-size: 17px;

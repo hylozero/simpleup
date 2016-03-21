@@ -13,7 +13,9 @@ gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) support
 gem "twitter-bootstrap-rails"
 gem 'rolify'
 gem 'client_side_validations'
-
+gem 'ruby-filemagic'
+gem 'font-awesome-rails'
+gem 'brazilian-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -33,6 +35,23 @@ gem "paperclip", "~> 4.1"
 gem 'jquery-datatables-rails', '~> 2.2.3'
 gem 'will_paginate'
 gem "select2-rails"
+
+group :development, :test do
+  # better_errors
+  gem "better_errors", '2.1.1'
+
+  gem "letter_opener", '1.3.0'
+  
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', '3.5.1'
+
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring', '1.3.3'
+
+  gem 'binding_of_caller'
+end
+
+
 # gem 'aws-sdk'
 
 # To use ActiveModel has_secure_password

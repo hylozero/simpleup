@@ -1,0 +1,28 @@
+development:
+  adapter: postgresql
+  database: simple-upload-dev
+  host: 172.20.20.200
+  username: postgres
+  password: postgres
+  encoding: utf8
+  port: 5432
+
+test:
+  adapter: postgresql
+  database: simple-upload-tst
+  host: localhost
+  username: postgres
+  password: postgres
+  encoding: utf8
+  port: 5432
+
+
+production:
+  adapter: postgresql
+  database: simple-upload-prod
+  host: localhost
+  username: postgres
+  password: postgres
+  encoding: utf8
+  port: 5432
+

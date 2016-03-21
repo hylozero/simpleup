@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140902200352) do
+ActiveRecord::Schema.define(:version => 20160318205228) do
 
   create_table "directories", :force => true do |t|
     t.string   "title"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20140902200352) do
     t.integer  "upload_file_size"
     t.datetime "upload_updated_at"
     t.integer  "directory_id"
+    t.string   "description"
   end
 
   create_table "users", :force => true do |t|
